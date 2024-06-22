@@ -104,7 +104,7 @@ function generateConfig() {
                 config += `:if ${property} ${operator} ${value}\n`;
             }
         });
-        if (include) config += `:include ${actionName}\n`;
+        if (include) config += `:include ${include}\n`;
 
 
         commands.forEach(command => {
