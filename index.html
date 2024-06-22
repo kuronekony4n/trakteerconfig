@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrakteerMod Config Generator</title>
+    <link rel="shortcut icon" href="https://cdn.modrinth.com/data/x2yIW2EF/ede252f1d11041a83080a108295ec281d6a26082.png"
+        type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>TrakteerMod Config Generator</h1>
+        <div class="paragraph">
+            Ini adalah config generator untuk mod <a href="https://modrinth.com/mod/trakteer-mod"
+                target="_blank">TrakteerMod</a>. Untuk
+            cara penggunaan dan detail lain, bisa cek dokumentasi/halaman modrinth.
+        </div>
+        <div id="actionsContainer">
+
+            <div class="action actionbox" data-action-index="0">
+                <form class="configForm">
+                    <div class="form-group">
+                        <label for="actionName">Base Action: * (Tidak bisa edit dan harus ada)</label>
+                        <input type="text" class="actionName" required value="default" disabled>
+                    </div>
+                    <div class="form-group">
+                        Offline?:
+                        <input type="checkbox" class="offline" checked>
+                    </div>
+                    <div class="form-group hide">
+                        <label for="include">Include Action:</label>
+                        <input type="text" class="include">
+                    </div>
+                    <div class="requirements"> </div>
+                    <button type="button" class="requirementButton" onclick="addRequirement(this)">Tambah
+                        Kondisi</button>
+                    <div class="form-group">
+                        <label for="commands">Minecraft Commands (perbaris, tanpa /): *</label>
+                        <textarea class="no-wrap-textarea commands" rows="5"
+                            required>say Terimakasih, {supporter_name} donasikan {amount}!</textarea>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+        <button type="button" onclick="addAction()">Tambah Action</button>
+        <button type="button" class="generateButton" onclick="generateConfig()">GENERATE CONFIG</button>
+
+        <div class="output">
+            <h2>Hasil Config</h2>
+            <textarea class="no-wrap-textarea" id="configOutput" rows="10"
+                readonly> Isi semua input yang di butuhkan (*) dan klik "GENERATE CONFIG" </textarea>
+            <button id="copyButton"> Copy Config</button>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+
+</html>
