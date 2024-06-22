@@ -57,6 +57,29 @@ function addAction() {
                 <input type="text" class="include">
             </div>
             <div class="requirements">
+            <div class="form-group requirement reqbox">
+        <label for="requirementProperty">Kondisi: * (setiap custom action harus ada minimal 1 kondisi)</label>
+        <select class="requirementProperty">
+            <option value="supporter_name">Supporter Name</option>
+            <option value="support_message">Support Message</option>
+            <option value="amount">Amount</option>
+            <option value="unit_name">Unit Name</option>
+            <option value="quantity">Quantity</option>
+            <option value="receiver">Receiver</option>
+        </select><br><br>
+        <label for="operator">Operator: *</label>
+        <select class="operator">
+            <option value="contains">contains (Mengandung)</option>
+            <option value="=">= (Sama/Persis)</option>
+            <option value=">=">&gt;= (Lebih Besar atau sama)</option>
+            <option value="<=">&lt;= (Lebih Kecil atau sama)</option>
+            <option value=">">&gt; (Lebih Besar)</option>
+            <option value="<">&lt; (Lebih Kecil)</option>
+        </select><br><br>
+        <label for="value">Value: *</label>
+        <input type="text" class="value" required=""><br><br>
+  
+    </div>
             </div>
             <button type="button" class="requirementButton" onclick="addRequirement(this)">Tambah
                         Kondisi</button>
@@ -87,6 +110,7 @@ function generateConfig() {
         const include = action.querySelector('.include').value.trim();
         const requirements = action.querySelectorAll('.requirement');
         const commands = action.querySelector('.commands').value.trim().split('\n');
+        const commandbox = action.querySelector('.commands').value.trim();
 
         if (!actionName || commands.length === 0) {
             alert('Tolong isi semua input yang dibutuhkan (ditandai *)');
@@ -102,14 +126,22 @@ function generateConfig() {
             const value = requirement.querySelector('.value').value.trim();
             if (value) {
                 config += `:if ${property} ${operator} ${value}\n`;
+            } else {
+                config += `!ERROR - Kondisi Value harus diisi.\n`;
             }
+
+
         });
         if (include) config += `:include ${include}\n`;
 
+        if (commandbox) {
+            commands.forEach(command => {
+                config += `${command}\n`;
+            });
+        } else {
+            config += `!ERROR - Minecraft Commands harus diisi.\n`;
+        }
 
-        commands.forEach(command => {
-            config += `${command}\n`;
-        });
 
         config += `\n`;
     });
